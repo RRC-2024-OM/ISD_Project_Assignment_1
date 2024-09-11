@@ -1,7 +1,10 @@
-"""Description: This module defines a Client class that manages client details like client number,
- name, and email, with validation for each field. Invalid emails default to a placeholder. It
- includes methods to access client information and a formatted string representation.
-Author: Om patel
+"""
+Author: Om Patel
+Date : 2024-09-11
+
+Description: Implemented Client class with attributes and methods as per the class diagram and detailed requirements. 
+Added validation for client_number, first_name, last_name, and email_address in the __init__ method. 
+Defined accessors as properties and implemented __str__ method for string representation.
 """
 
 from email_validator import validate_email, EmailNotValidError
