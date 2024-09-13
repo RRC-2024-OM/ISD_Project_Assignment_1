@@ -1,3 +1,12 @@
+"""Author:Om Patel
+
+Description : the Client class to represent client details including client number, 
+first name, last name, and email address. The class validates input data, 
+ensuring non-blank names and a valid email address.
+
+"""
+
+
 from email_validator import validate_email, EmailNotValidError
 
 class Client:

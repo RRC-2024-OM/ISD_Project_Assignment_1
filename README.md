@@ -5,10 +5,15 @@ an entire system will be created to manage bank transactions for clients who
 have one or more bank accounts.
 
 ## Author
-[Your name]
+Om Patel
 
 ## Assignment
-Assignment [assignment number]: [Indicate the name and description of the current assignment]
+## *Assignment 1 :  Automated Teller Project*
+
+In this assignment i developed of two core classes: BankAccount and Client. The BankAccount class manages bank account details and transactions, while the Client class handles client information. The goal is to implement encapsulation to protect internal data and provide controlled access through methods and properties.
 
 ## Encapsulation
-[use this section to explain how Encapsulation was achieved in the BankAccount and Transaction classes.]
+
+## Bank Account Class:
+
+In the BankAccount class, private attributes such as __account_number, __client_number, and __balance are hidden from direct access to prevent unauthorized changes. Public properties and methods, like deposit, withdraw, and update_balance, allow controlled interactions, ensuring that the balance is modified only under valid conditions.
