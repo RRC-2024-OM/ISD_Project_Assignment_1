@@ -19,10 +19,10 @@ class Test_Client(unittest.TestCase):
         """Setup runs AUTOMATICALLY before each test method and
         provides initial values for the class attributes.
         """
-        self.client = Client(1010, "Om", "Patel", "ompatel@gmail.com")
+        self.client = Client(2904, "Om", "Patel", "ompatel@gmail.com")
 
     def test_init_initializes_object(self):
-        self.assertEqual(self.client._Client__client_number, 1010)
+        self.assertEqual(self.client._Client__client_number, 2904)
         self.assertEqual(self.client._Client__first_name, "Om")
         self.assertEqual(self.client._Client__last_name, "Patel")
         self.assertEqual(self.client._Client__email_address, "ompatel@gmail.com")
@@ -44,10 +44,10 @@ class Test_Client(unittest.TestCase):
 
     def test_init_invalid_email(self):
         client = Client(1010, "Om", "Patel", "invalid_email")
-        self.assertEqual(client.email_address, "email@pixell-river.com")
+        self.assertEqual(client.email_address, "om.patel@pixell-river.com")
 
     def test_client_number_accessor_returns_correct_state(self):
-        self.assertEqual(self.client.client_number, 1010)
+        self.assertEqual(self.client.client_number, 2904)
 
     def test_first_name_accessor_returns_correct_state(self):
         self.assertEqual(self.client.first_name, "Om")
@@ -60,7 +60,7 @@ class Test_Client(unittest.TestCase):
 
     def test_str_returns(self):
         expected = (f"Name: Patel, Om\n"
-                    f"Client Number: 1010\n"
+                    f"Client Number: 2904\n"
                     f"Email Address: ompatel@gmail.com\n")
 
         self.assertEqual(expected, str(self.client))

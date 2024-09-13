@@ -2,7 +2,7 @@
 Description: Unit tests for the BankAccount class.
 Author: ACE Faculty
 Modified by: Om Patel
-Date: {Date}
+Date: 2024-09-11
 Usage: To execute all tests in the terminal execute 
 the following command:
     python -m unittest tests/test_bank_account.py

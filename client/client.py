@@ -1,12 +1,3 @@
-"""
-Author: Om Patel
-Date : 2024-09-11
-
-Description: Implemented Client class with attributes and methods as per the class diagram and detailed requirements. 
-Added validation for client_number, first_name, last_name, and email_address in the __init__ method. 
-Defined accessors as properties and implemented __str__ method for string representation.
-"""
-
 from email_validator import validate_email, EmailNotValidError
 
 class Client:
@@ -46,7 +37,7 @@ class Client:
             valid = validate_email(email_address)
             self.__email_address = valid.email
         except EmailNotValidError:
-            self.__email_address = "email@pixell-river.com"
+            self.__email_address = "om.patel@pixell-river.com"
  
     @property
     def client_number(self) -> int:
@@ -89,10 +80,11 @@ class Client:
         return self.__email_address
    
     def __str__(self) -> str:
-        """Returns the "informal" or nicely printable string representation of the Client instance.
+        """
+        Returns the "informal" or nicely printable string representation of the Client instance.
  
         Returns:
-            The "informal" or nicely printable string representation of the client's last name, first name,
+            str: The "informal" or nicely printable string representation of the client's last name, first name,
             client number, and email address.
         """
         return (
@@ -100,5 +92,3 @@ class Client:
             f"Client Number: {self.__client_number}\n"
             f"Email Address: {self.__email_address}\n"
         )
-
-
