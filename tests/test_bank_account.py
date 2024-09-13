@@ -13,30 +13,30 @@ from bank_account.bank_account import BankAccount
 class TestBankAccount(unittest.TestCase):
 
     def setUp(self):
-        self.account = BankAccount(12345, 67890, 1000.00)
+        self.account = BankAccount(2004, 2904, 1000.00)
 
     def test_init_attributes(self):
-        self.assertEqual(self.account._BankAccount__account_number, 12345)
-        self.assertEqual(self.account._BankAccount__client_number, 67890)
+        self.assertEqual(self.account._BankAccount__account_number, 2004)
+        self.assertEqual(self.account._BankAccount__client_number, 2904)
         self.assertEqual(round(self.account._BankAccount__balance, 2), 1000.00)
 
     def test_init_non_numeric_balance(self):
-        account = BankAccount(12345, 67890, "not_a_number")
+        account = BankAccount(2004, 2904, "not_a_number")
         self.assertEqual(round(account._BankAccount__balance, 2), 0.00)
 
     def test_init_non_numeric_account_number(self):
         with self.assertRaises(ValueError):
-            BankAccount("not_a_number", 67890, 1000.00)
+            BankAccount("not_a_number", 2904, 1000.00)
 
     def test_init_non_numeric_client_number(self):
         with self.assertRaises(ValueError):
-            BankAccount(12345, "not_a_number", 1000.00)
+            BankAccount(2004, "not_a_number", 1000.00)
 
     def test_account_number_getter(self):
-        self.assertEqual(self.account.account_number, 12345)
+        self.assertEqual(self.account.account_number, 2004)
 
     def test_client_number_getter(self):
-        self.assertEqual(self.account.client_number, 67890)
+        self.assertEqual(self.account.client_number, 2904)
 
     def test_balance_getter(self):
         self.assertEqual(round(self.account.balance, 2), 1000.00)
@@ -74,7 +74,7 @@ class TestBankAccount(unittest.TestCase):
             self.account.withdraw(2000.00)
 
     def test_str_method(self):
-        self.assertEqual(str(self.account), "Account: 12345, Client: 67890, Balance: 1000.00")
+        self.assertEqual(str(self.account), "Account: 2004, Client: 2904, Balance: 1000.00")
 
 if __name__ == '__main__':
     unittest.main()

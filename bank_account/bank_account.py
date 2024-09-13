@@ -2,10 +2,24 @@
 Date : 2024-09-11
 
 Description : 
+    This module defines a BankAccount class that allows for the creation and manipulation of bank account instances. 
+    It supports deposit and withdrawal operations with validation, and provides methods to access account details 
+    such as account number, client number, and balance.
 """
 
 class BankAccount:
     def __init__(self, account_number: int, client_number: int, balance: float):
+        """
+        Initializes a new instance of the BankAccount class.
+        
+        Args:
+            account_number (int): The account number for the bank account.
+            client_number (int): The client number associated with the bank account.
+            balance (float): The initial balance of the bank account.
+        
+        Raises:
+            ValueError: If account_number or client_number are not integers, or if balance cannot be converted to float.
+        """
         if not isinstance(account_number, int):
             raise ValueError("Account number must be an integer.")
         self.__account_number = account_number
@@ -21,17 +35,44 @@ class BankAccount:
 
     @property
     def account_number(self) -> int:
+        """
+        Gets the account number of the bank account.
+        
+        Returns:
+            int: The account number of the bank account.
+        """
         return self.__account_number
 
     @property
     def client_number(self) -> int:
+        """
+        Gets the client number associated with the bank account.
+        
+        Returns:
+            int: The client number associated with the bank account.
+        """
         return self.__client_number
 
     @property
     def balance(self) -> float:
+        """
+        Gets the current balance of the bank account.
+        
+        Returns:
+            float: The current balance of the bank account.
+        """
         return self.__balance
 
     def update_balance(self, amount: float):
+        """
+        Updates the balance of the bank account by the given amount.
+        
+        Args:
+            amount (float): The amount to be added to the current balance.
+        
+        Note:
+            The amount is expected to be a float. If it cannot be converted to float, no update occurs.
+        """
         try:
             amount = float(amount)
             self.__balance += amount
@@ -39,6 +80,15 @@ class BankAccount:
             pass
 
     def deposit(self, amount: float):
+        """
+        Deposits the given amount into the bank account.
+        
+        Args:
+            amount (float): The amount to deposit into the bank account.
+        
+        Raises:
+            ValueError: If the amount is not numeric or is less than or equal to zero.
+        """
         if not isinstance(amount, (int, float)):
             raise ValueError(f"Deposit amount: {amount} must be numeric.")
         
@@ -48,6 +98,15 @@ class BankAccount:
         self.update_balance(amount)
 
     def withdraw(self, amount: float):
+        """
+        Withdraws the given amount from the bank account.
+        
+        Args:
+            amount (float): The amount to withdraw from the bank account.
+        
+        Raises:
+            ValueError: If the amount is not numeric, is less than or equal to zero, or exceeds the current balance.
+        """
         if not isinstance(amount, (int, float)):
             raise ValueError(f"Withdraw amount: {amount} must be numeric.")
         
@@ -60,5 +119,12 @@ class BankAccount:
         self.update_balance(-amount)
 
     def __str__(self) -> str:
-        return f"Account: {self.__account_number}, Client: {self.__client_number}, Balance: {self.__balance:.2f}"
-
+        """
+        Provides a string representation of the bank account.
+        
+        Returns:
+            str: A string representation of the account number, client number, and current balance.
+        """
+        return (f"Account: {self.__account_number}, "
+                f"Client: {self.__client_number}, "
+                f"Balance: {self.__balance:.2f}")
