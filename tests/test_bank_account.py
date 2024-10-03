@@ -13,7 +13,7 @@ from bank_account.bank_account import BankAccount
 class TestBankAccount(unittest.TestCase):
 
     def setUp(self):
-        self.account = BankAccount(2004, 2904, 1000.00)
+        self.account = BankAccount(2004, 2904, 10000.00)
 
     def test_init_attributes(self):
         self.assertEqual(self.account._BankAccount__account_number, 2004)
