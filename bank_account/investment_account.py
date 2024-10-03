@@ -33,3 +33,30 @@ class InvestmentAccount(BankAccount):
         except ValueError:
             self.__management_fee = 2.55
 
+    def __str__(self) -> str:
+        """String for Investment account.
+
+        Returns:
+            A string representing account_number, client_number, balance, date_created and management fee."""
+        
+        if self._date_created > self.TEN_YEARS_AGO:
+            management_fee_str = f"${self.__management_fee:,.2f}"
+        else:
+            management_fee_str = "Waived"
+
+        return (f"Account Number: {self.account_number} "
+                f"Client Number: {self.client_number} "
+                f"Balance: ${self.balance:,.2f}\n"
+                f"Date Created: {self._date_created} "
+                f"Management Fee: {management_fee_str} "
+                f"Account Type: Investment\n")
+    
+    def get_service_charges(self) -> float:
+        """Returns the calculated service charge for the investment account.
+
+        Returns:
+            float: The service charge for the investment account."""
+        if self._date_created > self.TEN_YEARS_AGO:
+            return self.BASE_SERVICE_CHARGE + self.__management_fee
+        else:
+            return self.BASE_SERVICE_CHARGE
