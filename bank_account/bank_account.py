@@ -6,9 +6,10 @@ Description :
     It supports deposit and withdrawal operations with validation, and provides methods to access account details 
     such as account number, client number, and balance."""
 
+from abc import ABC, abstractmethod
 from datetime import date
 
-class BankAccount:
+class BankAccount(ABC):
     """A class used to represent a Bank Account.
 
     Attributes:
@@ -137,6 +138,9 @@ class BankAccount:
                 f"Client: {self.__client_number}"
                 f"Balance: {self.__balance:.2f}\n")
     
+    @abstractmethod
     def get_service_charges(self) -> float:
-        """Returns the calculated service charges for the bank account."""
-        return self.BASE_SERVICE_CHARGE
+        """Abstract method to return the calculated service charges.
+        Returns:
+            float: The calculated service charges for the bank account."""
+        pass
