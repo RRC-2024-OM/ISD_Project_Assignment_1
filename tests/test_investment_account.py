@@ -26,11 +26,31 @@ class TestInvestmentAccount(unittest.TestCase):
 
     def test_service_charge_for_a_decade(self):
         account = InvestmentAccount(2004, 2904, 1000.0, date(2014, 10, 4), 2.55)
-        self.assertEqual(account.get_service_charges(), 3.05)
+        self.assertEqual(0.50, round(account.get_service_charges(), 2))
 
     def test_service_charge_within_a_decade(self):
         account = InvestmentAccount(2004, 2904, 1000.0, date(2024, 10, 3), 2.55)
         self.assertEqual(account.get_service_charges(), 3.05)
+
+    def test_string_method_for_more_than_a_decade(self):
+        account = InvestmentAccount(2004, 2904, 1000.0, date(2013, 10, 4), 2.55)
+        expected_str = (f"Account Number: 2004 "
+                        f"Client Number: 2904 "
+                        f"Balance: $1,000.00\n"
+                        f"Date Created: 2013-10-04 "
+                        f"Management Fee: Waived "
+                        f"Account Type: Investment\n")
+        self.assertEqual(str(account), expected_str)
+
+    def test_string_method_within_a_decade(self):
+        account = InvestmentAccount(2004, 2904, 1000.0, date(2024, 10, 4), 2.55) 
+        expected_str = (f"Account Number: 2004 "
+                        f"Client Number: 2904 "
+                        f"Balance: $1,000.00\n"
+                        f"Date Created: 2024-10-04 "
+                        f"Management Fee: $2.55 "
+                        f"Account Type: Investment")
+        self.assertEqual(str(account).strip(), expected_str)
 
 if __name__=='__main__':
     unittest.main()
