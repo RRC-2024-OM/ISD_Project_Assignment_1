@@ -2,7 +2,8 @@
 Date : 2024-10-03
 
 Description : This module defines a ChequingAccount class that is sub class of BankAccount class.
-It has attributes and required methods for the Chequing Account."""
+It has attributes and required methods for the Chequing Account.
+"""
 
 from datetime import date
 from bank_account.bank_account import BankAccount

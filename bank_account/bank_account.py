@@ -4,7 +4,8 @@ Date : 2024-10-03
 Description : 
     This module defines a BankAccount class that allows for the creation and manipulation of bank account instances. 
     It supports deposit and withdrawal operations with validation, and provides methods to access account details 
-    such as account number, client number, and balance."""
+    such as account number, client number, and balance.
+"""
 
 from abc import ABC, abstractmethod
 from datetime import date
@@ -17,7 +18,8 @@ class BankAccount(ABC):
         account_number (int): The account number for the bank account.
         client_number (int): The client number associated with the bank account.
         balance (float): The initial balance of the bank account.
-        date_created (date): The date the account was created."""
+        date_created (date): The date the account was created.
+    """
     
     BASE_SERVICE_CHARGE: float = 0.50
     
@@ -31,7 +33,8 @@ class BankAccount(ABC):
             date_created (date): The date account was created.
         
         Raises:
-            ValueError: If account_number or client_number are not integers, or if balance cannot be converted to float."""
+            ValueError: If account_number or client_number are not integers, or if balance cannot be converted to float.  
+        """
         
         if not isinstance(account_number, int):
             raise ValueError("Account number must be an integer.")
@@ -56,7 +59,8 @@ class BankAccount(ABC):
         """Gets the account number of the bank account.
         
         Returns:
-            int: The account number of the bank account."""
+            int: The account number of the bank account.
+        """
         return self.__account_number
 
     @property
@@ -64,7 +68,8 @@ class BankAccount(ABC):
         """Gets the client number associated with the bank account.
         
         Returns:
-            int: The client number associated with the bank account."""
+            int: The client number associated with the bank account.
+        """
         return self.__client_number
 
     @property
@@ -72,7 +77,8 @@ class BankAccount(ABC):
         """Gets the current balance of the bank account.
         
         Returns:
-            float: The current balance of the bank account."""
+            float: The current balance of the bank account.
+        """
         return self.__balance
 
     def update_balance(self, amount: float):
@@ -81,8 +87,8 @@ class BankAccount(ABC):
         Args:
             amount (float): The amount to be added to the current balance.
         
-        Note:
-            The amount is expected to be a float. If it cannot be converted to float, no update occurs."""
+        Raises:   
+        """
         
         try:
             amount = float(amount)
