@@ -44,7 +44,7 @@ class SavingsAccount(BankAccount):
 
         return (f"Account Number: {self.account_number} "
                 f"Client Number: {self.client_number} "
-                f"Balance: {self.balance:,.2f}\n"
+                f"Balance: ${self.balance:,.2f}\n"
                 f"Minimum Balance: ${self.__minimum_balance:,.2f} "
                 f"Account Type: Savings\n")
     
