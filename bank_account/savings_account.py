@@ -4,7 +4,7 @@ Date: 2024-10-04
 Description : This module defines a SavingsAccount class that is sub class of BankAccount class.
 It has attributes and required methods for the Saving Account.
 """
-from datetime import date, timedelta
+from datetime import date
 from bank_account.bank_account import BankAccount
 
 class SavingsAccount(BankAccount):
