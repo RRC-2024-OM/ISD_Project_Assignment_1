@@ -4,6 +4,7 @@ Date: 2024-10-04
 Description : This module defines a SavingsAccount class that is sub class of BankAccount class.
 It has attributes and required methods for the Saving Account.
 """
+
 from datetime import date
 from bank_account.bank_account import BankAccount
 
@@ -11,9 +12,9 @@ class SavingsAccount(BankAccount):
     """The class represent Savings Account inherits for BankAccount which is superclass abstract.
 
     Attributes:
-    SERVICE_CHARGE_PREMIUM (float): Savings Account premium service charges.
+        SERVICE_CHARGE_PREMIUM (float): Savings Account premium service charges.
 
-    minimum_balance (float): Savings account minimum balance.
+        minimum_balance (float): Savings account minimum balance.
     """
 
     SERVICE_CHARGE_PREMIUM: float = 2.00
@@ -52,7 +53,7 @@ class SavingsAccount(BankAccount):
         """Returns the calculated service charge.
 
         Returns:
-            float: The service charge for savings account.
+            float: The service charge calculation for savings account.
         """
 
         if self.balance >= self.__minimum_balance:

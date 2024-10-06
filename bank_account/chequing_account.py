@@ -14,7 +14,8 @@ class ChequingAccount(BankAccount):
     Attributes:
         overdraft_limit (float): The maximum amount a balance can be overdrawn before 
         incurring overdraft fees.
-        overdraft_rate (float): Rate for the incurring overdraft fees which will be applicable."""
+        overdraft_rate (float): Rate for the incurring overdraft fees which will be applicable.
+    """
     
     def __init__(self, account_number: int, client_number: int, balance: float, date_created: date, overdraft_limit: float, overdraft_rate: float):
         """New ChequingAccount class created.
@@ -25,7 +26,8 @@ class ChequingAccount(BankAccount):
             balance (float): The initial balance of the bank account.
             date_created (date): The date the account was created.
             overdraft_limit (float): The overdraft limit for the chequing account.
-            overdraft_rate (float): The overdraft rates."""
+            overdraft_rate (float): The overdraft rates.
+        """
         
         super().__init__(account_number, client_number, balance, date_created)
 
@@ -43,7 +45,8 @@ class ChequingAccount(BankAccount):
         """Gives a string that is representation of Chequing account.
 
         Returns:
-            A string representation of account_number, client_number, balance, overdraft_limit and overdraft_rate."""
+            A string representation of account_number, client_number, balance, overdraft_limit and overdraft_rate.
+        """
         
         return (f"Account Number: {self.account_number} "
                 f"Client Number: {self.client_number} "
@@ -56,7 +59,8 @@ class ChequingAccount(BankAccount):
         """Return Calculated service charges for chequing account.
 
         Returns:
-            float: The service charges for the chequing account."""
+            float: The service charges for the chequing account.
+        """
         
         overdraft_interest = (self.__overdraft_limit - self.balance) * self.__overdraft_rate
 

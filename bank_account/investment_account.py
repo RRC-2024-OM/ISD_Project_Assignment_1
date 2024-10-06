@@ -24,7 +24,8 @@ class InvestmentAccount(BankAccount):
             client_number (int): The client number associated with the bank account.
             balance (float): The initial balance of the bank account.
             date_created (date): The date account was created.
-            management_fee (float): The fee for the investment account management."""
+            management_fee (float): The fee for the investment account management.
+        """
         
         super().__init__(account_number, client_number, balance, date_created)
 
@@ -37,7 +38,8 @@ class InvestmentAccount(BankAccount):
         """String for Investment account.
 
         Returns:
-            A string representing account_number, client_number, balance, date_created and management fee."""
+            A string representing account_number, client_number, balance, date_created and management fee.
+        """
         
         if self._date_created > self.TEN_YEARS_AGO:
             management_fee_str = f"${self.__management_fee:,.2f}"
@@ -55,7 +57,8 @@ class InvestmentAccount(BankAccount):
         """Returns the calculated service charge for the investment account.
 
         Returns:
-            float: The service charge for the investment account."""
+            float: The service charge for the investment account.
+        """
         if self._date_created > self.TEN_YEARS_AGO:
             return self.BASE_SERVICE_CHARGE + self.__management_fee
         else:
