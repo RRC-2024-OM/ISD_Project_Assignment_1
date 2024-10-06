@@ -35,7 +35,7 @@ class BankAccount(ABC):
         Raises:
             ValueError: If account_number or client_number are not integers, or if balance cannot be converted to float.  
         """
-        
+
         if not isinstance(account_number, int):
             raise ValueError("Account number must be an integer.")
         self.__account_number = account_number
@@ -87,7 +87,8 @@ class BankAccount(ABC):
         Args:
             amount (float): The amount to be added to the current balance.
         
-        Raises:   
+        Raises:
+            ValueError: Raise if not valid number.
         """
         
         try:
@@ -148,5 +149,6 @@ class BankAccount(ABC):
     def get_service_charges(self) -> float:
         """Abstract method to return the calculated service charges.
         Returns:
-            float: The calculated service charges for the bank account."""
+            float: The calculated service charges for the bank account.
+        """
         pass
