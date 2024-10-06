@@ -25,7 +25,7 @@ class TestInvestmentAccount(unittest.TestCase):
         self.assertEqual(account.get_service_charges(), 0.50)
 
     def test_service_charge_for_a_decade(self):
-        account = InvestmentAccount(2004, 2904, 1000.0, date.today(), 2.55)
+        account = InvestmentAccount(2004, 2904, 1000.0, date.today() - timedelta(days=10 * 365.25), 2.55)
         self.assertEqual(0.50, round(account.get_service_charges(), 2))
 
     def test_service_charge_within_a_decade(self):
