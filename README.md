@@ -30,3 +30,5 @@ In the BankAccount class, private attributes such as __account_number,__client_n
 2. **Method Overriding**: The subclasses override the 'get_service_charges' method from the BankAccount class to provide specific implementations based on the account type. This allows each subclass to calculate service charges differently while maintaining a common interface.
 
 3. **Polymorphic Behavior**: By using the common interface provided by the BankAccount class, we can treat instances of the subclasses as instances of the BankAccount class. This allows us to write code that works with any type of bank account without knowing the specific subclass.
+
+###### Assignment 3: Design Patterns 
