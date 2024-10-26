@@ -1,5 +1,5 @@
 """Author: Om Patel
-Date: 2024-10-04
+Date: 2024-10-25
 
 Description : This module defines a SavingsAccount class that is sub class of BankAccount class.
 It has attributes and required methods for the Saving Account.
@@ -7,6 +7,7 @@ It has attributes and required methods for the Saving Account.
 
 from datetime import date
 from bank_account.bank_account import BankAccount
+from patterns.strategy.minimum_balance_strategy import MinimumBalanceStrategy
 
 class SavingsAccount(BankAccount):
     """The class represent Savings Account inherits for BankAccount which is superclass abstract.
@@ -16,9 +17,6 @@ class SavingsAccount(BankAccount):
 
         minimum_balance (float): Savings account minimum balance.
     """
-
-    SERVICE_CHARGE_PREMIUM: float = 2.00
-
     def __init__(self, account_number: int, client_number: int, balance: float, date_created: date, minimum_balance: float):
         """New SavingsAccount class created.
 
@@ -35,6 +33,9 @@ class SavingsAccount(BankAccount):
             self.__minimum_balance = float(minimum_balance)
         except ValueError:
             self.__minimum_balance = 50.0
+
+        #MinimumBalanceStrategy
+        self._service_charge_strategy = MinimumBalanceStrategy(self.__minimum_balance)
 
     def __str__(self) -> str:
         """String for Savings Account.
@@ -56,8 +57,4 @@ class SavingsAccount(BankAccount):
             float: The service charge calculation for savings account.
         """
 
-        if self.balance >= self.__minimum_balance:
-            return self.BASE_SERVICE_CHARGE
-        else:
-            return self.BASE_SERVICE_CHARGE * self.SERVICE_CHARGE_PREMIUM
-
+        return self._service_charge_strategy.calculate_service_charges(self)
