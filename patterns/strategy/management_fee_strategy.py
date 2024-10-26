@@ -3,6 +3,7 @@ Description : Strategy for calculating management fees.
 Author : Om Patel
 """
 from datetime import date, timedelta
+from bank_account.bank_account import BankAccount
 from strategy.service_charge_strategy import ServiceChargeStrategy
 
 class ManagementFeeStrategy(ServiceChargeStrategy):
@@ -12,7 +13,7 @@ class ManagementFeeStrategy(ServiceChargeStrategy):
         self.__date_created = date_created
         self.__management_fee = management_fee
 
-    def calculate_service_charges(self, account) -> float:
+    def calculate_service_charges(self, account: BankAccount) -> float:
         if self.__date_created > self.TEN_YEARS_AGO:
             return self.BASE_SERVICE_CHARGE + self.__management_fee
         else:
