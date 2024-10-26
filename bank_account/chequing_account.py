@@ -7,6 +7,7 @@ It has attributes and required methods for the Chequing Account.
 
 from datetime import date
 from bank_account.bank_account import BankAccount
+from patterns.strategy.overdraft_strategy import OverdraftStrategy
 
 class ChequingAccount(BankAccount):
     """Class representing Chequing Account, which inherits from the BackAccount class.
@@ -16,7 +17,6 @@ class ChequingAccount(BankAccount):
         incurring overdraft fees.
         overdraft_rate (float): Rate for the incurring overdraft fees which will be applicable.
     """
-    
     def __init__(self, account_number: int, client_number: int, balance: float, date_created: date, overdraft_limit: float, overdraft_rate: float):
         """New ChequingAccount class created.
 
@@ -28,7 +28,6 @@ class ChequingAccount(BankAccount):
             overdraft_limit (float): The overdraft limit for the chequing account.
             overdraft_rate (float): The overdraft rates.
         """
-        
         super().__init__(account_number, client_number, balance, date_created)
 
         try:
@@ -41,13 +40,14 @@ class ChequingAccount(BankAccount):
         except ValueError:
             self.__overdraft_rate = 0.05
 
+        self._service_charge_strategy = OverdraftStrategy(self.__overdraft_limit, self.__overdraft_rate)
+
     def __str__(self) -> str:
         """Gives a string that is representation of Chequing account.
 
         Returns:
             A string representation of account_number, client_number, balance, overdraft_limit and overdraft_rate.
         """
-        
         return (f"Account Number: {self.account_number} "
                 f"Client Number: {self.client_number} "
                 f"Balance: ${self.balance:,.2f}\n"
@@ -60,14 +60,8 @@ class ChequingAccount(BankAccount):
 
         Returns:
             float: The service charges for the chequing account.
-        """
-        
-        overdraft_interest = (self.__overdraft_limit - self.balance) * self.__overdraft_rate
-
-        if self.balance >= self.__overdraft_limit:
-            return self.BASE_SERVICE_CHARGE
-        else:
-            return self.BASE_SERVICE_CHARGE + overdraft_interest
+        """ 
+        return self._service_charge_strategy.calculate_service_charges(self)
 
 
 
