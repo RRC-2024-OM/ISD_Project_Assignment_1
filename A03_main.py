@@ -2,18 +2,18 @@
 Description: A client program written to verify implementation 
 of the Observer Pattern.
 Author: ACE Faculty
-Edited by: {Student Name}
-Date: {Date}
+Edited by: Om Patel
+Date: 2024-10-26
 """
 
 # 1.  Import all BankAccount types using the bank_account package
 #     Import date
 #     Import Client
-
-
-
-
-
+from bank_account.chequing_account import ChequingAccount
+from bank_account.investment_account import InvestmentAccount
+from bank_account.savings_account import SavingsAccount
+from datetime import date
+from client.client import Client
 
 # 2. Create a Client object with data of your choice.
 
