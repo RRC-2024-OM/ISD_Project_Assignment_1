@@ -1,5 +1,5 @@
 """Author : Om Patel
-Date : 2024-10-03
+Date : 2024-10-25
 
 Description : 
     This module defines a BankAccount class that allows for the creation and manipulation of bank account instances. 
@@ -19,10 +19,7 @@ class BankAccount(ABC):
         client_number (int): The client number associated with the bank account.
         balance (float): The initial balance of the bank account.
         date_created (date): The date the account was created.
-    """
-    
-    BASE_SERVICE_CHARGE: float = 0.50
-    
+    """    
     def __init__(self, account_number: int, client_number: int, balance: float, date_created: date):
         """Initializes a new instance of the BankAccount class.
         
@@ -90,14 +87,12 @@ class BankAccount(ABC):
         Raises:
             ValueError: Raise if not valid number.
         """
-        
         try:
             amount = float(amount)
             self.__balance += amount
         except ValueError:
             raise ValueError("Amount must be a numeric value.")
         
-
     def deposit(self, amount: float):
         """Deposits the given amount into the bank account.
         
