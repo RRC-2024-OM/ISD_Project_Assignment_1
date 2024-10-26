@@ -11,4 +11,8 @@ class MinimumBalanceStrategy(ServiceChargeStrategy):
     def __init__(self, minimum_balance: float):
         self.__minimum_balance = minimum_balance
 
-    
+    def calculate_service_charges(self, account: BankAccount) -> float:
+        if account.balance >= self.__minimum_balance:
+            return self.BASE_SERVICE_CHARGE
+        else:
+            return self.BASE_SERVICE_CHARGE * self.SERVICE_CHARGE_PREMIUM
