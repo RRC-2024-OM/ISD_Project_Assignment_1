@@ -102,7 +102,7 @@ class BankAccount(Subject, ABC):
         except ValueError:
             raise ValueError("Amount must be a numeric value.")
         
-    def deposit(self, amount: float):
+    def deposit(self, amount: float) -> None:
         """Deposits the given amount into the bank account.
         
         Args:
@@ -119,7 +119,7 @@ class BankAccount(Subject, ABC):
         
         self.update_balance(amount)
 
-    def withdraw(self, amount: float):
+    def withdraw(self, amount: float) -> None:
         """Withdraws the given amount from the bank account.
         
         Args:
