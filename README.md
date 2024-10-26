@@ -9,21 +9,21 @@ have one or more bank accounts.
 
 Om Patel
 
-### Assignment
+## Assignment
 
-#### Assignment 1 :  Automated Teller Project*
+### Assignment 1 :  Automated Teller Project*
 
 In this assignment i developed of two core classes: BankAccount and Client. The BankAccount class manages bank account details and transactions, while the Client class handles client information. The goal is to implement encapsulation to protect internal data and provide controlled access through methods and properties.
 
-##### Encapsulation
+#### Encapsulation
 
-##### Bank Account Class
+#### Bank Account Class
 
 In the BankAccount class, private attributes such as __account_number,__client_number, and __balance are hidden from direct access to prevent unauthorized changes. Public properties and methods, like deposit, withdraw, and update_balance, allow controlled interactions, ensuring that the balance is modified only under valid conditions.
 
-###### Assignment 2: Abstraction, Inheritance and Polymorphism
+### Assignment 2: Abstraction, Inheritance and Polymorphism
 
-###### How Polymorphism Was Achieved
+#### How Polymorphism Was Achieved
 
 1. **Inheritance**: Each subclass (ChequingAccount, SavingsAccount, and InvestmentAccount) inherits from the base class BankAccount. This means that each subclass inherits the attributes and methods of the BankAccount class.
 
@@ -31,4 +31,18 @@ In the BankAccount class, private attributes such as __account_number,__client_n
 
 3. **Polymorphic Behavior**: By using the common interface provided by the BankAccount class, we can treat instances of the subclasses as instances of the BankAccount class. This allows us to write code that works with any type of bank account without knowing the specific subclass.
 
-###### Assignment 3: Design Patterns 
+### Assignment 3: Design Patterns
+
+#### Strategy Patterns
+
+The bank charges are calculated depending on the kind of account using the Strategy Pattern. Through this method, calculation logic is divorced from the BankAccount classes. This reduces the system development overhead by isolating the calculation logic.
+
+##### Implementation
+
+1. **ServiceChargeStrategy** : An abstract class that defines one common place where all service charge calculation strategies.
+2. **ManagementFeeStrategy** : Strategy for calculating service charge for InvestmentAccount.
+3. **OverdraftStrategy** : Strategy for calculating service for ChequingAccount.
+4. **MinimumBalanceStrategy** : Strategy for calculating service for SavingsAccount.
+
+Each BankAccount subclass contains a private strategy instance. The get_service_charge method calls this instance to compute service charges, 
+keeping the logic modular and easily adjustable.
