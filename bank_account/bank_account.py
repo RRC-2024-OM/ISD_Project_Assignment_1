@@ -1,5 +1,5 @@
 """Author : Om Patel
-Date : 2024-10-25
+Date : 2024-10-26
 
 Description : 
     This module defines a BankAccount class that allows for the creation and manipulation of bank account instances. 
@@ -9,8 +9,9 @@ Description :
 
 from abc import ABC, abstractmethod
 from datetime import date
+from patterns.observer.subject import Subject
 
-class BankAccount(ABC):
+class BankAccount(Subject, ABC):
     """A class used to represent a Bank Account.
 
     Attributes:
@@ -19,7 +20,10 @@ class BankAccount(ABC):
         client_number (int): The client number associated with the bank account.
         balance (float): The initial balance of the bank account.
         date_created (date): The date the account was created.
-    """    
+    """
+    LARGE_TRANSACTION_THRESHOLD: float = 9999.99
+    LOW_BALANCE_LEVEL: float =50.0
+
     def __init__(self, account_number: int, client_number: int, balance: float, date_created: date):
         """Initializes a new instance of the BankAccount class.
         
@@ -32,6 +36,7 @@ class BankAccount(ABC):
         Raises:
             ValueError: If account_number or client_number are not integers, or if balance cannot be converted to float.  
         """
+        super().__init__()
 
         if not isinstance(account_number, int):
             raise ValueError("Account number must be an integer.")
@@ -78,7 +83,7 @@ class BankAccount(ABC):
         """
         return self.__balance
 
-    def update_balance(self, amount: float):
+    def update_balance(self, amount: float) -> None:
         """Updates the balance of the bank account by the given amount.
         
         Args:
@@ -90,6 +95,10 @@ class BankAccount(ABC):
         try:
             amount = float(amount)
             self.__balance += amount
+            if self.__balance < self.LOW_BALANCE_LEVEL:
+                self.notify(f"Low balance warning ${self.__balance:.2f}: on account {self.__account_number}.")
+            if abs(amount) > self.LARGE_TRANSACTION_THRESHOLD:
+                self.notify(f"Large transaction ${amount:.2f}: on account{self.__account_number}")
         except ValueError:
             raise ValueError("Amount must be a numeric value.")
         
