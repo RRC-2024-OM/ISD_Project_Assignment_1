@@ -46,3 +46,14 @@ The bank charges are calculated depending on the kind of account using the Strat
 
 Each BankAccount subclass contains a private strategy instance. The get_service_charge method calls this instance to compute service charges, 
 keeping the logic modular and easily adjustable.
+
+#### Observer Patterns
+
+The observer patterns is used to notify the user about account activities.
+
+1. **Observer** : An abstract class that defines one common place where all notification.
+2. **Subject** : A class that maintains the list of observers and there notifications.
+3. **Client** : Implements the observer.
+4. **BankAccount** : Implements the subject and notifies its observes of any activity.
+
+With the use of observer patterns, the application ensure that client will get notifications of important activities.
