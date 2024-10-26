@@ -2,7 +2,7 @@
 Description : Strategy for service charge calculation.
 Author: Om Patel
 """
-from strategy.service_charge_strategy import ServiceChargeStrategy
+from patterns.strategy.service_charge_strategy import ServiceChargeStrategy
 from bank_account.bank_account import BankAccount
 
 class MinimumBalanceStrategy(ServiceChargeStrategy):

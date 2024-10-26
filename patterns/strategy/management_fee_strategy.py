@@ -4,7 +4,7 @@ Author : Om Patel
 """
 from datetime import date, timedelta
 from bank_account.bank_account import BankAccount
-from strategy.service_charge_strategy import ServiceChargeStrategy
+from patterns.strategy.service_charge_strategy import ServiceChargeStrategy
 
 class ManagementFeeStrategy(ServiceChargeStrategy):
     TEN_YEARS_AGO = date.today() - timedelta(days = 10 * 365.25)
