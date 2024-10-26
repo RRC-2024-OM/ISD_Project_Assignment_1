@@ -2,7 +2,7 @@
 Description : Subject handling observer and managing the notifications.
 Author : Om Patel
 """
-from observer.observer import Observer
+from patterns.observer.observer import Observer
 
 class Subject:
     def __init__(self) -> None:
