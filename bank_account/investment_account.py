@@ -1,18 +1,20 @@
 """Author : Om Patel
-Date : 2024-10-3
+Date : 2024-10-25
 
 Description :  This module defines a InvestmentAccount class that is sub class of BankAccount class.
 It has attributes and required methods for the Investment Account.
 """
 from datetime import date, timedelta
 from bank_account.bank_account import BankAccount
+from patterns.strategy.management_fee_strategy import ManagementFeeStrategy
 
 class InvestmentAccount(BankAccount):
     """The class represent Investment Account inherits for BankAccount which is superclass abstract.
 
     Attributes:
         TEN_YEARS_AGO (date): Gets the date ten years ago from present today.
-        management_fee (float) : Fees for managing the investment account."""
+        management_fee (float) : Fees for managing the investment account.
+    """
     
     TEN_YEARS_AGO = date.today() - timedelta(days=10 * 365.25)
 
@@ -26,7 +28,6 @@ class InvestmentAccount(BankAccount):
             date_created (date): The date account was created.
             management_fee (float): The fee for the investment account management.
         """
-        
         super().__init__(account_number, client_number, balance, date_created)
 
         try:
@@ -34,13 +35,15 @@ class InvestmentAccount(BankAccount):
         except ValueError:
             self.__management_fee = 2.55
 
+        #ManagementFeeStrategy
+        self._service_charge_strategy = ManagementFeeStrategy(self._date_created, self.__management_fee)
+
     def __str__(self) -> str:
         """String for Investment account.
 
         Returns:
             A string representing account_number, client_number, balance, date_created and management fee.
         """
-        
         if self._date_created > self.TEN_YEARS_AGO:
             management_fee_str = f"${self.__management_fee:,.2f}"
         else:
@@ -59,7 +62,4 @@ class InvestmentAccount(BankAccount):
         Returns:
             float: The service charge for the investment account.
         """
-        if self._date_created > self.TEN_YEARS_AGO:
-            return self.BASE_SERVICE_CHARGE + self.__management_fee
-        else:
-            return self.BASE_SERVICE_CHARGE
+        return self._service_charge_strategy.calculate_service_charges(self)
