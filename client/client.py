@@ -103,6 +103,12 @@ class Client(Observer):
         )
     
     def update(self, message: str) -> None:
+        """Send an update message notification to the client in case any new activity is being there
+        in account by simulating an email.
+
+        Args:
+            message (str) : The message regrading new activity with took place in account.
+        """
         subject = f"ALERT: Unusual Activity: {datetime.now()}"
 
         notification_message = (f"Notification for {self.__client_number}: " 

@@ -15,7 +15,8 @@ class BankAccount(Subject, ABC):
     """A class used to represent a Bank Account.
 
     Attributes:
-        BASE_SERVICE_CHARGE (float): The base service charge for the bank account.
+        LARGE_TRANSACTION_THRESHOLD (float): The large transaction for transactions.
+        LOW_BALANCE_LEVEL (float): The low balance warning.
         account_number (int): The account number for the bank account.
         client_number (int): The client number associated with the bank account.
         balance (float): The initial balance of the bank account.
