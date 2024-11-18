@@ -3,16 +3,18 @@ Description: This module defines the AccountDetailsWindow class for handling acc
 Author: Om Patel
 """
 
-from PySide6.QtWidgets import QMessageBox
+from PySide6.QtWidgets import QDialog, QMessageBox
+from PySide6.QtCore import Signal, Slot
 from ui_superclasses.details_window import DetailsWindow
 from bank_account.bank_account import BankAccount
 import copy
 
 class AccountDetailsWindow(DetailsWindow):
-    def __init__(self, account: BankAccount) -> None:
-        super().__init__()
+    balance_updated = Signal(BankAccount)  
 
-        # Check if the account parameter is an instance of BankAccount
+    def __init__(self, account: BankAccount) -> None:
+
+        super().__init__()
         if isinstance(account, BankAccount):
             self.account = copy.copy(account)
             self.account_number_label.setText(str(self.account.account_number))
@@ -44,6 +46,9 @@ class AccountDetailsWindow(DetailsWindow):
             self.balance_label.setText(f"${self.account.balance:,.2f}")
             self.transaction_amount_edit.setText("")
             self.transaction_amount_edit.setFocus()
+
+            #Signal Emission
+            self.balance_updated.emit(self.account)
         except Exception as e:
             QMessageBox.critical(self, "Transaction Failed", f"{transaction_type} failed: {e}")
             self.transaction_amount_edit.setText("")
