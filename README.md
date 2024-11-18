@@ -57,3 +57,20 @@ The observer patterns is used to notify the user about account activities.
 4. **BankAccount** : Implements the subject and notifies its observes of any activity.
 
 With the use of observer patterns, the application ensure that client will get notifications of important activities.
+
+### Assignment 4 Event-Driven Programming Paradigm
+
+This application employs the Event-Driven Programming Paradigm to handle user interactions and system responses dynamically. In an event-driven architecture, the flow of the program is determined by events such as user actions (clicks, key presses), sensor outputs, or messages from other programs.
+
+#### Key Components
+
+1. **Signals and Slots**:
+    - Signals: In this application, signals are emitted to indicate that an event has occurred. For example, when a transaction is applied (deposit or withdraw) in the AccountDetailsWindow, a signal is emitted to notify the ClientLookupWindow.
+    - Slots: Slots are functions that are called in response to a particular signal. In this application, the ClientLookupWindow has a slot (update_data) that updates the account balance in the table when it receives a signal from the AccountDetailsWindow.
+
+2. **Event Handlers**:
+    - *Button Clicks*: The application connects button clicks (e.g., deposit, withdraw, exit) to specific event handlers. These handlers perform actions such as applying a transaction or closing a window.
+    - *Table Cell Clicks*: Clicking on a table cell in the ClientLookupWindow triggers an event handler that opens the AccountDetailsWindow for the selected account.
+
+3. **Dynamic Updates**:
+    - The use of signals and slots allows the application to update the user interface dynamically. When the balance of an account is updated in the AccountDetailsWindow, the change is immediately reflected in the ClientLookupWindow without the need for manual refreshing.
