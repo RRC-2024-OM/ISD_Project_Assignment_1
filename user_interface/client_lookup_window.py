@@ -2,25 +2,25 @@
 Description: This module defines the ClientLookupWindow class for handling client lookup and account selection in the banking application.
 Author: Om Patel
 """
-from PySide6.QtWidgets import QTableWidgetItem, QMessageBox
-from PySide6.QtCore import Qt, Slot
 
+from PySide6.QtWidgets import QTableWidgetItem, QMessageBox
+from PySide6.QtCore import Slot
 from ui_superclasses.lookup_window import LookupWindow
 from user_interface.account_details_window import AccountDetailsWindow
-from user_interface.manage_data import load_data
+from user_interface.manage_data import load_data, update_data
 from bank_account.bank_account import BankAccount
-import csv
-import logging
 
 class ClientLookupWindow(LookupWindow):
     def __init__(self):
         super().__init__()
         self.__client_listing, self.__accounts = load_data()
-        self.lookup_button.clicked.connect(self.__on_lookup_client)  
-        self.account_table.cellClicked.connect(self.__on_select_account)  
+        self.lookup_button.clicked.connect(self.__on_lookup_client)
+        self.account_table.cellClicked.connect(self.__on_select_account)
 
     def __on_lookup_client(self):
-        
+        """
+        Handles the client lookup event by displaying client details and associated bank accounts.
+        """
         try:
             client_number = int(self.client_number_edit.text())
         except ValueError:
@@ -44,14 +44,16 @@ class ClientLookupWindow(LookupWindow):
 
                 self.account_table.setItem(row_position, 0, QTableWidgetItem(str(account.account_number)))
                 self.account_table.setItem(row_position, 1, QTableWidgetItem(f"${account.balance:,.2f}"))
-                self.account_table.setItem(row_position, 2, QTableWidgetItem(str(account._date_created))) 
+                self.account_table.setItem(row_position, 2, QTableWidgetItem(str(account._date_created)))
                 self.account_table.setItem(row_position, 3, QTableWidgetItem(account.__class__.__name__))
 
         self.account_table.resizeColumnsToContents()
 
     @Slot(int, int)
     def __on_select_account(self, row: int, column: int) -> None:
-        
+        """
+        Handles the account selection event by opening the Account Details window.
+        """
         account_number_item = self.account_table.item(row, 0)
         if account_number_item is None:
             QMessageBox.critical(self, "Invalid Selection", "No account selected.")
@@ -64,36 +66,21 @@ class ClientLookupWindow(LookupWindow):
 
         account = self.__accounts[account_number]
         account_details_window = AccountDetailsWindow(account)
+
+        account_details_window.balance_updated.connect(self.update_data)
+
         account_details_window.exec_()
-        
-        self.__update_data(account)
 
-    def __update_data(self, updated_account: BankAccount) -> None:
-        """
-        A private method to update the accounts.csv file with balance
-        data provided in the BankAccount argument.
+    @Slot(BankAccount)
+    def update_data(self, account: BankAccount):
+        for row in range(self.account_table.rowCount()):
+            account_number_item = self.account_table.item(row, 0)
+            if account_number_item and int(account_number_item.text()) == account.account_number:
+                self.account_table.setItem(row, 1, QTableWidgetItem(f"${account.balance:,.2f}"))
 
-        Args:
-            updated_account (BankAccount): A bank account containing an updated balance.
-        """
-        updated_rows = []
+        # Update the accounts dictionary
+        self.__accounts[account.account_number] = account
 
-        with open('data/accounts.csv', mode='r', newline='') as file:
-            reader = csv.DictReader(file)
-            fields = reader.fieldnames
-            
-            for row in reader:
-                account_number = int(row['account_number'])
-                # Check if the account number is in the dictionary
-                if account_number == updated_account.account_number:
-                    # Update the balance column with the new balance from the dictionary
-                    row['balance'] = updated_account.balance
-                updated_rows.append(row)
-
-        # Write the updated data back to the CSV
-        with open('data/accounts.csv', mode='w', newline='') as file:
-            writer = csv.DictWriter(file, fieldnames=fields)
-            writer.writeheader()
-            writer.writerows(updated_rows)
-            logging.info(f"Updated balance for account number: {updated_account.account_number}")
+        # Update the accounts.csv file
+        update_data(account)
 
