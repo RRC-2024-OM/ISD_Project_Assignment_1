@@ -123,8 +123,9 @@ def load_data() -> Tuple[dict, dict]:
 
 def update_data(updated_account: BankAccount) -> None:
     """
-    A function to update the accounts.csv file with balance 
+    A function to update the accounts.csv file with balance
     data provided in the BankAccount argument.
+
     Args:
         updated_account (BankAccount): A bank account containing an updated balance.
     """
@@ -147,11 +148,11 @@ def update_data(updated_account: BankAccount) -> None:
         writer = csv.DictWriter(file, fieldnames=fields)
         writer.writeheader()
         writer.writerows(updated_rows)
-
+        logging.info(f"Updated balance for account number: {updated_account.account_number}")
 
 # GIVEN TESTING SECTION:
 if __name__ == "__main__":
-    clients,accounts = load_data()
+    clients, accounts = load_data()
 
     print("=========================================")
     for client in clients.values():
