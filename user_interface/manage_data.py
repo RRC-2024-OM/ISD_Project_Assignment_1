@@ -1,11 +1,18 @@
+"""
+Description: This module handles data loading and updating operations for client and bank account information.
+Author: Om Patel
+"""
 import os
 import sys
+from typing import Tuple
 # THIS LINE IS NEEDED SO THAT THE GIVEN TESTING 
 # CODE CAN RUN FROM THIS DIRECTORY.
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 import csv
-from datetime import datetime
+from datetime import date
 import logging
+from bank_account.bank_account import BankAccount
+from client.client import Client
 
 # *******************************************************************************
 # GIVEN LOGGING AND FILE ACCESS CODE
@@ -39,26 +46,34 @@ accounts_csv_path = os.path.join(data_dir, 'accounts.csv')
 # END GIVEN LOGGING AND FILE ACCESS CODE
 # *******************************************************************************
 
-
-
-
-
-
-def load_data()->tuple[dict,dict]:
+def load_data() -> Tuple[dict, dict]:
     """
-    Populates a client dictionary and an account dictionary with 
+    Populates a client dictionary and an account dictionary with
     corresponding data from files within the data directory.
+
     Returns:
-        tuple containing client dictionary and account dictionary.
+        tuple: containing client dictionary and account dictionary.
     """
     client_listing = {}
     accounts = {}
 
-    # READ CLIENT DATA 
-    with open(clients_csv_path, newline='') as csvfile:
-        reader = csv.DictReader(csvfile)
-        
+    try:
+        # READ CLIENT DATA
+        with open(clients_csv_path, newline='') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                try:
+                    client_number = int(row['client_number'])
+                    first_name = row['first_name']
+                    last_name = row['last_name']
+                    email_address = row['email_address']
 
+                    # Construct Client object
+                    client_listing[client_number] = Client(client_number, first_name, last_name, email_address)
+                
+                except Exception as e:
+                    logging.error(f"Unable to create client: {e}")
+        
     # READ ACCOUNT DATA
     with open(accounts_csv_path, newline='') as csvfile:
         reader = csv.DictReader(csvfile)  
