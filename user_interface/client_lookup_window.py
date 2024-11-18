@@ -4,22 +4,35 @@ Author: Om Patel
 """
 
 from PySide6.QtWidgets import QTableWidgetItem, QMessageBox
-from PySide6.QtCore import Slot
+from PySide6.QtCore import Qt, Slot
 from ui_superclasses.lookup_window import LookupWindow
 from user_interface.account_details_window import AccountDetailsWindow
 from user_interface.manage_data import load_data, update_data
 from bank_account.bank_account import BankAccount
 
 class ClientLookupWindow(LookupWindow):
-    def __init__(self):
+    """
+    A class used to handle client lookup and account selection in the banking application.
+    """
+
+    def __init__(self) -> None:
+        """
+        Initializes the ClientLookupWindow by setting up connections and loading data.
+        
+        Returns:
+            None
+        """
         super().__init__()
         self.__client_listing, self.__accounts = load_data()
         self.lookup_button.clicked.connect(self.__on_lookup_client)
         self.account_table.cellClicked.connect(self.__on_select_account)
 
-    def __on_lookup_client(self):
+    def __on_lookup_client(self) -> None:
         """
         Handles the client lookup event by displaying client details and associated bank accounts.
+        
+        Returns:
+            None
         """
         try:
             client_number = int(self.client_number_edit.text())
@@ -53,6 +66,13 @@ class ClientLookupWindow(LookupWindow):
     def __on_select_account(self, row: int, column: int) -> None:
         """
         Handles the account selection event by opening the Account Details window.
+        
+        Args:
+            row (int): The row index of the selected cell.
+            column (int): The column index of the selected cell.
+        
+        Returns:
+            None
         """
         account_number_item = self.account_table.item(row, 0)
         if account_number_item is None:
@@ -72,7 +92,16 @@ class ClientLookupWindow(LookupWindow):
         account_details_window.exec_()
 
     @Slot(BankAccount)
-    def update_data(self, account: BankAccount):
+    def update_data(self, account: BankAccount) -> None:
+        """
+        Updates the account balance in the table and in the accounts dictionary.
+        
+        Args:
+            account (BankAccount): The bank account with the updated balance.
+        
+        Returns:
+            None
+        """
         for row in range(self.account_table.rowCount()):
             account_number_item = self.account_table.item(row, 0)
             if account_number_item and int(account_number_item.text()) == account.account_number:
