@@ -4,7 +4,7 @@ Author: Om Patel
 """
 
 from PySide6.QtWidgets import QTableWidgetItem, QMessageBox
-from PySide6.QtCore import Qt, Slot
+from PySide6.QtCore import Slot
 from ui_superclasses.lookup_window import LookupWindow
 from user_interface.account_details_window import AccountDetailsWindow
 from user_interface.manage_data import load_data, update_data
@@ -62,8 +62,14 @@ class ClientLookupWindow(LookupWindow):
                 self.account_table.setItem(row_position, 3, QTableWidgetItem(account.__class__.__name__))
 
         self.account_table.resizeColumnsToContents()
+        self.__toggle_filter(False)
 
-    @Slot(int, int)
+        # Enable the filter widgets
+        self.filter_combo_box.setEnabled(True)
+        self.filter_edit.setEnabled(True)
+        self.filter_button.setEnabled(True)
+        self.filter_label.setEnabled(True)
+
     def __on_select_account(self, row: int, column: int) -> None:
         """
         Handles the account selection event by opening the Account Details window.
@@ -129,4 +135,24 @@ class ClientLookupWindow(LookupWindow):
                         self.account_table.setRowHidden(row, True)
                 else:
                     self.account_table.setRowHidden(row, True)
+
+            self.__toggle_filter(True)
+        else:
+            self.__toggle_filter(False)
+
+    def __toggle_filter(self, filter_on: bool) -> None:
+        if filter_on:
+            self.filter_button.setText("Reset")
+            self.filter_combo_box.setEnabled(False)
+            self.filter_edit.setEnabled(False)
+            self.filter_label.setText("Data is Currently Filtered")
+        else:
+            self.filter_button.setText("Apply Filter")
+            self.filter_combo_box.setEnabled(True)
+            self.filter_edit.setEnabled(True)
+            self.filter_edit.setText("")
+            self.filter_combo_box.setCurrentIndex(0)
+            for row in range(self.account_table.rowCount()):
+                self.account_table.setRowHidden(row, False)
+            self.filter_label.setText("Data is Not Currently Filtered")
 
