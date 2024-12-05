@@ -26,6 +26,7 @@ class ClientLookupWindow(LookupWindow):
         self.__client_listing, self.__accounts = load_data()
         self.lookup_button.clicked.connect(self.__on_lookup_client)
         self.account_table.cellClicked.connect(self.__on_select_account)
+        self.filter_button.clicked.connect(self.__on_filter_clicked)
 
     def __on_lookup_client(self) -> None:
         """
@@ -112,4 +113,20 @@ class ClientLookupWindow(LookupWindow):
 
         # Update the accounts.csv file
         update_data(account)
+
+    def __on_filter_clicked(self) -> None:
+        if self.filter_button.text() == "Apply Filter":
+            filter_index = self.filter_combo_box.currentIndex()
+            filter_text = self.filter_edit.text().strip().lower()
+
+            for row in range(self.account_table.rowCount()):
+                item = self.account_table.item(row, filter_index)
+                if item:
+                    item_text = item.text().lower()
+                    if filter_text in item_text:
+                        self.account_table.setRowHidden(row, False)
+                    else:
+                        self.account_table.setRowHidden(row, True)
+                else:
+                    self.account_table.setRowHidden(row, True)
 
