@@ -1,8 +1,8 @@
-"""Author : Om Patel
-Date : 2024-10-26
+"""Author: Om Patel
+Date: 2024-10-26
 
-Description : 
-    This module defines a BankAccount class that allows for the creation and manipulation of bank account instances. 
+Description:
+    This module defines a BankAccount class that allows for the creation and manipulation of bank account instances.
     It supports deposit and withdrawal operations with validation, and provides methods to access account details 
     such as account number, client number, and balance.
 """
@@ -15,15 +15,15 @@ class BankAccount(Subject, ABC):
     """A class used to represent a Bank Account.
 
     Attributes:
-        LARGE_TRANSACTION_THRESHOLD (float): The large transaction for transactions.
-        LOW_BALANCE_LEVEL (float): The low balance warning.
+        LARGE_TRANSACTION_THRESHOLD (float): The threshold for a large transaction.
+        LOW_BALANCE_LEVEL (float): The balance level considered low.
         account_number (int): The account number for the bank account.
         client_number (int): The client number associated with the bank account.
         balance (float): The initial balance of the bank account.
         date_created (date): The date the account was created.
     """
     LARGE_TRANSACTION_THRESHOLD: float = 9999.99
-    LOW_BALANCE_LEVEL: float =50.0
+    LOW_BALANCE_LEVEL: float = 50.0
 
     def __init__(self, account_number: int, client_number: int, balance: float, date_created: date):
         """Initializes a new instance of the BankAccount class.
@@ -32,10 +32,10 @@ class BankAccount(Subject, ABC):
             account_number (int): The account number for the bank account.
             client_number (int): The client number associated with the bank account.
             balance (float): The initial balance of the bank account.
-            date_created (date): The date account was created.
+            date_created (date): The date the account was created.
         
         Raises:
-            ValueError: If account_number or client_number are not integers, or if balance cannot be converted to float.  
+            ValueError: If account_number or client_number are not integers, or if balance cannot be converted to float.
         """
         super().__init__()
 
@@ -91,15 +91,15 @@ class BankAccount(Subject, ABC):
             amount (float): The amount to be added to the current balance.
         
         Raises:
-            ValueError: Raise if not valid number.
+            ValueError: If the amount is not a valid number.
         """
         try:
             amount = float(amount)
             self.__balance += amount
             if self.__balance < self.LOW_BALANCE_LEVEL:
-                self.notify(f"Low balance warning ${self.__balance:.2f}: on account {self.__account_number}.")
+                self.notify(f"Low balance warning ${self.__balance:.2f} on account {self.__account_number}.")
             if abs(amount) > self.LARGE_TRANSACTION_THRESHOLD:
-                self.notify(f"Large transaction ${amount:.2f}: on account{self.__account_number}")
+                self.notify(f"Large transaction ${amount:.2f} on account {self.__account_number}.")
         except ValueError:
             raise ValueError("Amount must be a numeric value.")
         
@@ -110,8 +110,8 @@ class BankAccount(Subject, ABC):
             amount (float): The amount to deposit into the bank account.
         
         Raises:
-            ValueError: If the amount is not numeric or is less than or equal to zero."""
-        
+            ValueError: If the amount is not numeric or is less than or equal to zero.
+        """
         if not isinstance(amount, (int, float)):
             raise ValueError(f"Deposit amount: {amount} must be numeric.")
         
@@ -127,8 +127,8 @@ class BankAccount(Subject, ABC):
             amount (float): The amount to withdraw from the bank account.
         
         Raises:
-            ValueError: If the amount is not numeric, is less than or equal to zero, or exceeds the current balance."""
-        
+            ValueError: If the amount is not numeric, is less than or equal to zero, or exceeds the current balance.
+        """
         if not isinstance(amount, (int, float)):
             raise ValueError(f"Withdraw amount: {amount} must be numeric.")
         
@@ -144,15 +144,16 @@ class BankAccount(Subject, ABC):
         """Provides a string representation of the bank account.
         
         Returns:
-            str: A string representation of the account number, client number, and current balance."""
-        
-        return (f"Account: {self.__account_number}"
-                f"Client: {self.__client_number}"
-                f"Balance: {self.__balance:.2f}\n")
+            str: A string representation of the account number, client number, and current balance.
+        """
+        return (f"Account: {self.__account_number}, "
+                f"Client: {self.__client_number}, "
+                f"Balance: ${self.__balance:.2f}\n")
     
     @abstractmethod
     def get_service_charges(self) -> float:
         """Abstract method to return the calculated service charges.
+        
         Returns:
             float: The calculated service charges for the bank account.
         """

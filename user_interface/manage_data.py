@@ -26,7 +26,7 @@ root_dir = os.path.dirname(os.path.dirname(__file__))
 log_dir = os.path.join(root_dir, 'logs')
  
 # Create the log directory if it doesn't exist
-os.makedirs(log_dir, exist_ok = True)
+os.makedirs(log_dir, exist_ok=True)
  
 # Specify the path to the log file within the log directory
 log_file_path = os.path.join(log_dir, 'manage_data.log')
@@ -131,24 +131,29 @@ def update_data(updated_account: BankAccount) -> None:
     """
     updated_rows = []
 
-    with open(accounts_csv_path, mode='r', newline='') as file:
-        reader = csv.DictReader(file)
-        fields = reader.fieldnames
-        
-        for row in reader:
-            account_number = int(row['account_number'])
-            # Check if the account number is in the dictionary
-            if account_number == updated_account.account_number:
-                # Update the balance column with the new balance from the dictionary
-                row['balance'] = updated_account.balance
-            updated_rows.append(row)
+    try:
+        with open(accounts_csv_path, mode='r', newline='') as file:
+            reader = csv.DictReader(file)
+            fields = reader.fieldnames
+            
+            for row in reader:
+                account_number = int(row['account_number'])
+                # Check if the account number is in the dictionary
+                if account_number == updated_account.account_number:
+                    # Update the balance column with the new balance from the dictionary
+                    row['balance'] = updated_account.balance
+                updated_rows.append(row)
 
-    # Write the updated data back to the CSV
-    with open(accounts_csv_path, mode='w', newline='') as file:
-        writer = csv.DictWriter(file, fieldnames=fields)
-        writer.writeheader()
-        writer.writerows(updated_rows)
-        logging.info(f"Updated balance for account number: {updated_account.account_number}")
+        # Write the updated data back to the CSV
+        with open(accounts_csv_path, mode='w', newline='') as file:
+            writer = csv.DictWriter(file, fieldnames=fields)
+            writer.writeheader()
+            writer.writerows(updated_rows)
+            logging.info(f"Updated balance for account number: {updated_account.account_number}")
+
+    except Exception as e:
+        logging.error(f"Error updating account balance for account number {updated_account.account_number}: {e}")
+
 
 # GIVEN TESTING SECTION:
 if __name__ == "__main__":
